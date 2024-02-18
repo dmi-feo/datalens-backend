@@ -27,9 +27,12 @@ if TYPE_CHECKING:
     from dl_constants.api_constants import DLHeaders
 
 
-
 class DLCookiesYT(DLCookies):
     YT_COOKIE = "YTCypressCookie"
+
+
+CSRF_TOKEN_PLACEHOLDER = "CSRF_TOKEN_PLACEHOLDER"
+YT_COOKIE_PLACEHOLDER = "YT_COOKIE_PLACEHOLDER"
 
 
 @attr.s(frozen=True)
@@ -49,8 +52,8 @@ class YTAuthService:
     def _before_request(self) -> None:
         temp_rci = ReqCtxInfoMiddleware.get_temp_rci().clone(
             auth_data=YTAuthData(
-                yt_auth_cookie=flask.request.cookies.get(DLCookiesYT.YT_COOKIE.value),
-                yt_csrf_token=flask.request.headers.get(DLHeadersCommon.CSRF_TOKEN.value)
+                yt_auth_cookie=flask.request.cookies.get(DLCookiesYT.YT_COOKIE.value, YT_COOKIE_PLACEHOLDER),
+                yt_csrf_token=flask.request.headers.get(DLHeadersCommon.CSRF_TOKEN.value, CSRF_TOKEN_PLACEHOLDER)
             ),
             tenant=TenantCommon(),
         )
@@ -72,8 +75,10 @@ def yt_auth_middleware() -> AIOHTTPMiddleware:
         else:
             updated_rci = app_request.temp_rci.clone(
                 auth_data=YTAuthData(
-                    yt_auth_cookie=app_request.request.cookies.get(DLCookiesYT.YT_COOKIE.value),
-                    yt_csrf_token=app_request.request.headers.get(DLHeadersCommon.CSRF_TOKEN.value),
+                    yt_auth_cookie=app_request.request.cookies.get(DLCookiesYT.YT_COOKIE.value, YT_COOKIE_PLACEHOLDER),
+                    yt_csrf_token=app_request.request.headers.get(
+                        DLHeadersCommon.CSRF_TOKEN.value, CSRF_TOKEN_PLACEHOLDER
+                    ),
                 ),
                 tenant=TenantCommon()
             )
