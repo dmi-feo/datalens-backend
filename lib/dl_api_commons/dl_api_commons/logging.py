@@ -36,6 +36,7 @@ SECRET_HEADERS: frozenset[str] = frozenset(
         "X-Us-Master-Token",
         "Master-Token",
         "X-DL-API-Key",
+        "X-Csrf-Token",
     )
 )
 
@@ -48,6 +49,7 @@ SECRET_COOKIES: frozenset[str] = frozenset(
         "sessionid2",
         "yc_session",
         "iam_cookie",
+        "YTCypressCookie",
     )
 )
 
