@@ -25,10 +25,12 @@ target "base_jammy_db" {
   contexts = {
     bake_ctx_base_img = "target:base_jammy"
   }
+  platforms = PLATFORMS
 }
 
 target "base_jammy" {
   context = "target_base_jammy"
+  platforms = PLATFORMS
 }
 
 target "dloveryt_control_api" {
@@ -40,6 +42,7 @@ target "dloveryt_control_api" {
   }
   context    = "${DL_B_PROJECT_ROOT}/app/dloveryt_control_api"
   dockerfile = "Dockerfile"
+  platforms = PLATFORMS
 }
 
 target "dloveryt_data_api" {
@@ -51,4 +54,5 @@ target "dloveryt_data_api" {
   }
   context    = "${DL_B_PROJECT_ROOT}/app/dloveryt_data_api"
   dockerfile = "Dockerfile"
+  platforms = PLATFORMS
 }

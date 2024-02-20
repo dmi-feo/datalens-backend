@@ -52,3 +52,7 @@ function dl_dockerfile_prepare_src {
 variable _NULL_CTX {
   default = "${DL_B_PROJECT_ROOT}/docker_build/null_context"
 }
+
+variable PLATFORMS {
+  default = ["linux/amd64"]
+}
