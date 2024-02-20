@@ -30,6 +30,7 @@ RUN python3 -m pip install -U pip
 RUN python3 -m pip install poetry==1.7.1 j2cli==0.3.10
 
 RUN curl "https://storage.yandexcloud.net/cloud-certs/CA.pem" > /usr/local/share/ca-certificates/yandex-cloud-ca.crt
+RUN curl "https://storage.ai.nebius.cloud/certs/CA.pem" > /usr/local/share/ca-certificates/nebius-cloud-ca.crt
 RUN update-ca-certificates
 
 ENV REQUESTS_CA_BUNDLE "/etc/ssl/certs/ca-certificates.crt"
